@@ -45,8 +45,25 @@ I did not create a third Budget because creating a third budget spendig goes ove
 
 ### Recreate Logical Archetecture Design in Lucid Charts
 
-![Cruddur Logical Design](assets/Logical-Arctechiture-Diagram.png)
+![Cruddur Logical Design](assets/Cruddur%20logical%20Diagram.png)
 
-[Lucid Chart Shared Links](https://lucid.app/lucidchart/5564adc0-83b5-4b8f-9361-5c187c1f0f2e/edit?viewport_loc=-558%2C-1030%2C2060%2C1146%2C0_0&invitationId=inv_d0c43cbb-17f3-49a0-aaa3-a1f12f033db1)
+[Lucid Chart Shared Links](https://lucid.app/lucidchart/5564adc0-83b5-4b8f-9361-5c187c1f0f2e/edit?invitationId=inv_d0c43cbb-17f3-49a0-aaa3-a1f12f033db1)
 
 ## Homework Challenge 
+
+### Adding Security Components to the Logical Diagram
+
+I added AWS Web Application Firewall (AWS WAF) to my Diagram to enhance web security.
+
+Firtly I have to define a AWS WAF  
+AWS WAF (Web Application Firewall) is a cloud-based security service that protects web applications and APIs from common exploits and bots by filtering and monitoring HTTP/HTTPS traffic based on customizable rules, allowing you to allow, block, or count requests matching conditions like IP addresses, SQL injection, or cross-site scripting. It integrates with AWS resources like CloudFront, API Gateway, and Application Load Balancers to enforce security policies at the edge. 
+
+Protection: WAF rules can help block SQL injection, cross-site scripting (XSS), and known malicious IP addresses.
+
+I Placed an AWS WAF in front of your Load Balancer. This protects your application from common web exploits and bots that could affect availability, compromise security, or consume excessive resources.
+
+![Cruddur Logical Design With Added Security](assets/Cruddur%20logical%20Diagram%20(1).png)
+[Lucid chart shared links](https://lucid.app/lucidchart/5564adc0-83b5-4b8f-9361-5c187c1f0f2e/edit?invitationId=inv_d0c43cbb-17f3-49a0-aaa3-a1f12f033db1)
+
+### Referencing AWS WAF
+[Google](https://www.google.com/search?q=define+aws+waf&oq=define+aws+awf&gs_lcrp=EgZjaHJvbWUqCAgBEAAYDRgeMgYIABBFGDkyCAgBEAAYDRgeMg0IAhAAGIYDGIAEGIoFMg0IAxAAGIYDGIAEGIoFMg0IBBAAGIYDGIAEGIoFMgoIBRAAGIAEGKIEMgoIBhAAGIAEGKIEMgoIBxAAGIAEGKIEMgcICBAAGO8F0gEJMTM5MzVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
