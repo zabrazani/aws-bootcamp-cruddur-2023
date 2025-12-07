@@ -46,4 +46,7 @@ I did not create a third Budget because creating a third budget spendig goes ove
 ### Recreate Logical Archetecture Design in Lucid Charts
 
 ![Cruddur Logical Design](assets/Logical-Arctechiture-Diagram.png)
+
+[Lucid Chart Shared Links](https://lucid.app/lucidchart/5564adc0-83b5-4b8f-9361-5c187c1f0f2e/edit?viewport_loc=-558%2C-1030%2C2060%2C1146%2C0_0&invitationId=inv_d0c43cbb-17f3-49a0-aaa3-a1f12f033db1)
+
 ## Homework Challenge 
