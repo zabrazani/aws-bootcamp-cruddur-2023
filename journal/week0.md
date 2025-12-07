@@ -9,6 +9,8 @@ I was able to use ONA (formally known as gitpod) to install using the terminal a
 I did  the following steps to install AWS CLI.
 
 I installed theAWS CLI via command in **ONA CODE TERMINAL**:
+I followed the Intructions on the [AWS CLI Install Documentation Page](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
 
 ![Installing AWS CLI](assets/installing-AWS-CLI-ONA.png)
 
