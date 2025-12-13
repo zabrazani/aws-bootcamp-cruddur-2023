@@ -110,8 +110,13 @@ Well this command came with an error
 `docker build -t backend-flask ./backend-flask`  
 `bash: docker: command not found`  
 
-I had to download and install Docker Desktop on my pc.  
+I had to download and install Docker Desktop and restart my pc.  
 https://www.docker.com/products/docker-desktop/  
 
 It still did not work.  
+![](assets/error%20image.png)  
+
+I had to update my wsl in my command prompt  
+`wsl --update`  
+Finally it worked, you can see the download happening in the image.
 
