@@ -118,5 +118,7 @@ It still did not work.
 
 I had to update my wsl in my command prompt  
 `wsl --update`  
-Finally it worked, you can see the download happening in the image.
+
+Finally it worked, you can see the download happening in the image.  
+![](assets/Screenshot%202025-12-13%20013421.png)
 
