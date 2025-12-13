@@ -142,5 +142,24 @@ Finally it worked, you can see the download happening in the image.
 I used this command  
 `docker run -p 4567:4567 -d --name cruddur-backend backend-flask:latest`  
 It is working  
-![Here it is](assets/Cont%20showed.png)
+![Here it is](assets/Cont%20showed.png)  
 
+### Back to Run in the background
+
+Since `FRONTEND_URL="*" BACKEND_URL="*" docker run --rm -p 4567:4567 -it backend-flask` did not work and I tried troubleshooting it  
+I left click the backend-flask:latest contianer and clicked on view logs to show the logs  
+other solution I keft click the container again and clicked on the attach shell to bring up the container root shell  
+After i used `env` to check my environmental variable and its not there.
+
+to get docker help  
+`docker run --help`  
+> --env list     Set environment variables
+
+Then I used this commands to successfully resolve our environmental Issue problem and successfully run the code and i saw my container.  
+```sh
+set BACKEND_URL="*"  
+set FRONTEND_URL="*"  
+docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
+# or
+docker run --rm -p 4567=4567 -it  -e FRONTEND_URL -e BACKEND_URL backend-flask
+```
