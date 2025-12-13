@@ -34,4 +34,23 @@ It failed because its a python package and i have try another way by downloading
 3. Verify Installion with: `python --version`
 
 
-I ran the code again and it worked and installed.
+I ran the code again and it worked and installed.  
+
+## Containized Backend  
+
+
+### RUN PYTHON  
+
+```sh
+cd backend-flask
+export FRONTEND_URL="*"
+export BACKEND_URL="*"
+python3 -m flask run --host=0.0.0.0 --port=4567
+cd . .
+```
+
+- make sure to click on forward port at the port tab
+- add 4567 in the port insert and open the link in your browser
+- append to the url to '/api/activities/home'
+
+
