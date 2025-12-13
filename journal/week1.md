@@ -119,6 +119,21 @@ It still did not work.
 I had to update my wsl in my command prompt  
 `wsl --update`  
 
+I used `wsl -l -v` to verify my wsl is installed and updated and restarted my docker desktop..   
+
+I ran the command  
+`docker build -t backend-flask ./backend-flask`   
+
 Finally it worked, you can see the download happening in the image.  
-![](assets/Screenshot%202025-12-13%20013421.png)
+![](assets/Screenshot%202025-12-13%20013421.png)  
+
+## Run Container  
+
+### Run  
+
+`docker run --rm -p 4567:4567 -it backend-flask`  
+
+### Run in the Background  
+
+`docker container run --rm -p 4567:4567 -d backend-flask`
 
