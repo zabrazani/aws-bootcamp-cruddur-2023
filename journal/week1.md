@@ -136,4 +136,11 @@ Finally it worked, you can see the download happening in the image.
 ### Run in the Background  
 
 `docker container run --rm -p 4567:4567 -d backend-flask`
+`FRONTEND_URL="*" BACKEND_URL="*" docker run --rm -p 4567:4567 -it backend-flask`  
+
+### I noticed that there is nothing on my container but the image is showing  
+I used this command  
+`docker run -p 4567:4567 -d --name cruddur-backend backend-flask:latest`  
+It is working  
+![Here it is](assets/Cont%20showed.png)
 
