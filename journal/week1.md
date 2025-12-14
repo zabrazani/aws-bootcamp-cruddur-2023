@@ -263,7 +263,7 @@ services:
   backend-flask:
     environment:
       # --- FIX 1: Use localhost/IP addresses for local host communication ---
-      FRONTEND_URL: "http://localhost:3001" 
+      FRONTEND_URL: "http://localhost:3000" 
       BACKEND_URL: "http://localhost:4567" 
     build: ./backend-flask
     # Note: If 4567 is busy, you can change the host port, e.g., "4568:4567"
