@@ -161,5 +161,34 @@ set BACKEND_URL="*"
 set FRONTEND_URL="*"  
 docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
 # or
-docker run --rm -p 4567=4567 -it  -e FRONTEND_URL -e BACKEND_URL backend-flask
+docker run --rm -p 4567:4567 -it  -e FRONTEND_URL -e BACKEND_URL backend-flask
+unset BACKEND_URL="*"
+unset FRONTEND_URL="*" 
 ```
+
+### Get Container Images  or Running Container  Ids  
+
+```
+docker ps
+docker images
+
+```
+
+### Send Curl to Test Server 
+### Send a GET Request (Default) 
+` curl https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home `  
+###  Send a POST Request with Data (e.g., JSON)  
+`curl -X POST -H "Content-Type: application/json" -d '{"key": "value", "another_key": "another_value"}' https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home`  
+### Send a PUT Request (Update Data)  
+`curl -X PUT -H "Content-Type: application/json" -d '{"updated_key": "updated_value"}' https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home`  
+### Upload a File  
+```
+curl -T localfile.txt ftp://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home
+# Or via HTTP, if the server accepts PUT requests for upload
+curl -X PUT -T localfile.txt https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home
+```
+### Add Authentication  
+` curl -u username:password https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home`
+
+
+
