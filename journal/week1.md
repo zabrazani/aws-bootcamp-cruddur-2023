@@ -200,5 +200,26 @@ docker logs --since=1h <container-name-or-id>
 
 ```
 
+###Gain Access to a Container  
+`docker exec CONTAINER_ID -it /bin/bash`  
 
+### Delete An Image  
+Stop and remove containers (if necessary): If the image is in use by a container (even a stopped one), you must remove the container first  
+```sh
+# List all containers (running and stopped)
+docker ps -a
+# Stop a running container
+docker stop <container_id_or_name>
+# Remove the container
+docker rm <container_id_or_name>
 
+```
+Delete the image: Use the docker rmi command with the image's name (repository:tag) or Image ID.  
+```sh
+docker rmi <image_name>:<tag>
+# or using the image ID (first few digits usually suffice)
+docker rmi <image_id>
+
+```
+If you need to force the removal (e.g., if a running container is using it and you want to bypass the error), use the -f (force) flag.  
+` docker rmi <image_id_1> <image_id_2> <image_name_3> `
