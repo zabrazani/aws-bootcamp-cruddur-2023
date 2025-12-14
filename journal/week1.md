@@ -223,3 +223,24 @@ docker rmi <image_id>
 ```
 If you need to force the removal (e.g., if a running container is using it and you want to bypass the error), use the -f (force) flag.  
 ` docker rmi <image_id_1> <image_id_2> <image_name_3> `
+
+## Containernize Frontend  
+
+### Run NPM Install  
+We have  to run NPM install before building  the container since it needs to copy  the contents  to node_modules  
+```
+cd frontend-react-js/
+npm i
+```
+> i for install
+
+### Create Dockerfile  
+Create a file here `frontend-react-js/Dockerfile `  
+
+```
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm  install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
