@@ -188,7 +188,17 @@ curl -T localfile.txt ftp://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home
 curl -X PUT -T localfile.txt https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home
 ```
 ### Add Authentication  
-` curl -u username:password https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home`
+` curl -u username:password https://tcfbzj88-4567.uks1.devtunnels.ms/api/activities/home`  
+
+### Check Container Logs  
+```
+docker logs <container-name-or-id>
+docker logs -f <container-name-or-id>
+docker logs -t <container-name-or-id>
+docker logs -t <container-name-or-id>
+docker logs --since=1h <container-name-or-id>
+
+```
 
 
 
