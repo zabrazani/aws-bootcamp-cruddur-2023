@@ -232,15 +232,71 @@ We have  to run NPM install before building  the container since it needs to cop
 cd frontend-react-js/
 npm i
 ```
-> i for install
+i for install
+
+My `npm i` did not work so i ahve to download and install node.js, restart my computer.
+https://nodejs.org/en/download  
+> make sure when installing node.js you select 'ADD PATH' Option
+
+  
 
 ### Create Dockerfile  
 Create a file here `frontend-react-js/Dockerfile `  
 
 ```
+# --- ADD THIS LINE (The Missing Base Image) ---
+FROM node:18-alpine 
+# ---------------------------------------------
 COPY . /frontend-react-js
 WORKDIR /frontend-react-js
 RUN npm  install
 EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
+## Multiple Container  
+### Create a docker-compose.yaml  
+Create a docker-compose.yaml  
+```yaml
+version: '3.8'
+
+services:
+  backend-flask:
+    environment:
+      # --- FIX 1: Use localhost/IP addresses for local host communication ---
+      FRONTEND_URL: "http://localhost:3001" 
+      BACKEND_URL: "http://localhost:4567" 
+    build: ./backend-flask
+    # Note: If 4567 is busy, you can change the host port, e.g., "4568:4567"
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+    # --- FIX 3: Add this line to ensure services can communicate within the network ---
+    networks:
+      - internal-network
+
+  frontend-react-js:
+    environment:
+      # --- FIX 2: Use the service name for backend communication ---
+      REACT_APP_BACKEND_URL: "http://backend-flask:4567" 
+    build: ./frontend-react-js
+    # frontend will be accessible on your browser at http://localhost:3001
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+    # --- FIX 3: Add this line to ensure services can communicate within the network ---
+    networks:
+      - internal-network
+
+# The network definition should remain at the end
+networks:
+  internal-network:
+    driver: bridge 
+    name: cruddur
+```
+
+To get it running
+`docker-compose up`  
+or  
+left click on the docker-compose file and click on the compose up option.  
