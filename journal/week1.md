@@ -300,3 +300,12 @@ To get it running
 `docker-compose up`  
 or  
 left click on the docker-compose file and click on the compose up option.  
+
+And we have data!  
+
+![](assets/Screenshot%20(5795).png)  
+
+Also use docker compose down to shut it down... thank you  
+
+
+
