@@ -309,3 +309,46 @@ Also use docker compose down to shut it down... thank you
 
 
 
+## week - 1 - Add postgress Dynamodb  
+
+### Adding DynamoDB  Local and Postgres  
+
+We are going to use Postgres and DynamoDB local in future labs. We can bring them in as containers and reference them externally  
+
+Let's Intergrate following into our existing docker compose file
+
+### DynamoDB Local  
+
+```yaml
+services:
+# https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+#We needed to add user:root to get  this working..
+user: root
+command: "-jar DynamoDBlocal.jar -sharedDB -dbPath ./data"
+image: "amazon/dynamodb-local:latest"
+container_name: dynamodb-local
+ports:
+  - "8000:8000"
+volumes:
+  -"./docker/dynamodb:/home/dynamodblocal/data"
+working_dir: /home/dynamodblocal
+```
+
+### Postgres  
+
+```
+services:
+  db:
+    Images: postgres:13-alphine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes:
+      db:/var/lib/postgresql/date
+  volumes:
+    db:
+      driver:local
+```
