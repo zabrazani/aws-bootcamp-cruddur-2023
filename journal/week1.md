@@ -321,25 +321,26 @@ Let's Intergrate following into our existing docker compose file
 
 ```yaml
 services:
-# https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-#We needed to add user:root to get  this working..
-user: root
-command: "-jar DynamoDBlocal.jar -sharedDB -dbPath ./data"
-image: "amazon/dynamodb-local:latest"
-container_name: dynamodb-local
-ports:
-  - "8000:8000"
-volumes:
-  -"./docker/dynamodb:/home/dynamodblocal/data"
-working_dir: /home/dynamodblocal
+dynamodb-local:
+  # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+  #We needed to add user:root to get  this working..
+  user: root
+  command: "-jar DynamoDBlocal.jar -sharedDb -dbPath ./data"
+  image: "amazon/dynamodb-local:latest"
+  container_name: dynamodb-local
+  ports:
+    - "8000:8000"
+  volumes:
+    -"./docker/dynamodb:/home/dynamodblocal/data"
+  working_dir: /home/dynamodblocal
 ```
 
 ### Postgres  
 
-```
+```yaml
 services:
   db:
-    Images: postgres:13-alphine
+    Images: postgres:13-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -347,7 +348,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      db:/var/lib/postgresql/date
+      - db:/var/lib/postgresql/data
   volumes:
     db:
       driver:local
