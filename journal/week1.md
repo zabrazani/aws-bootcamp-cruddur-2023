@@ -335,6 +335,11 @@ dynamodb-local:
   working_dir: /home/dynamodblocal
 ```
 
+[Documents about Dynamodb](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+
+Examples of using Dynamodb Local  
+[](https://github.com/zabrazani/aws-bootcamp-cruddur-2023/blob/main/Challenge%20DynamoDB%20Local)
+
 ### Postgres  
 
 ```yaml
@@ -354,4 +359,13 @@ services:
       driver:local
 ```
 
-[Documents about Dynamodb](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+How to install the postgres client on gitpod  
+```sh
+- name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ 'lsb_release -cs'-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+      sudo apt-get update
+      sudo apt install -y postgresql-13 libpq-dev
+```
+
