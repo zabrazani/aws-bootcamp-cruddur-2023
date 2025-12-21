@@ -368,4 +368,100 @@ How to install the postgres client on gitpod
       sudo apt-get update
       sudo apt install -y postgresql-13 libpq-dev
 ```
+## How to Install on Vscode/Windows/Linux-Mac  
+
+Got it — you want to use a **Postgres client inside VS Code** so you can connect to your PostgreSQL database directly. There are two main approaches:
+
+---
+
+## 🛠 Option 1: Install a VS Code Extension (Recommended)
+The easiest way is to use a database extension that integrates PostgreSQL into VS Code.
+
+### Steps:
+1. Open **VS Code**.
+2. Go to the **Extensions Marketplace** (`Ctrl+Shift+X`).
+3. Search for **PostgreSQL**.
+   - Popular choices:
+     - **PostgreSQL** (by Chris Kolkman) – lightweight client.
+     - **SQLTools** + **SQLTools PostgreSQL Driver** – more advanced, supports multiple databases.
+4. Install the extension.
+5. Open the **Command Palette** (`Ctrl+Shift+P`) → search for **PostgreSQL: Add Connection**.
+6. Enter your connection details:
+   - **Host:** `localhost`
+   - **Port:** `5432`
+   - **User:** `postgres`
+   - **Password:** `password` (or whatever you set in Docker)
+   - **Database:** `postgres` (default)
+
+Now you can run queries directly inside VS Code.
+
+---
+
+### 🛠 Option 2: Install the Postgres CLI (`psql`)
+If you want the **command-line client** available in VS Code’s terminal:
+
+### Windows
+1. Download **PostgreSQL installer** from [https://www.postgresql.org/download/windows/](https://www.postgresql.org/download/windows/).
+2. During installation, check the box for **Command Line Tools**.
+3. Add PostgreSQL’s `bin` folder to your **PATH** (e.g., `C:\Program Files\PostgreSQL\18\bin`).
+4. Restart VS Code → open terminal → run:
+   ```bash
+   psql -h localhost -U postgres -d postgres
+   ```
+
+### Linux / macOS
+```bash
+sudo apt install postgresql-client   # Ubuntu/Debian
+brew install postgresql              # macOS (Homebrew)
+```
+
+---  
+  
+
+##Here’s how to set it up properly On Windows:
+
+---
+
+### 🛠 Steps to Add PostgreSQL to PATH on Windows
+1. **Locate the bin folder**  
+   - By default, PostgreSQL installs under:  
+     ```
+     C:\Program Files\PostgreSQL\<version>\bin
+     ```
+   - For example:  
+     ```
+     C:\Program Files\PostgreSQL\18\bin
+     ```
+
+2. **Add to PATH**  
+   - Press **Win + R**, type `sysdm.cpl`, and hit Enter.  
+   - Go to **Advanced → Environment Variables**.  
+   - Under **System variables**, find `Path` → click **Edit**.  
+   - Click **New** → paste:  
+     ```
+     C:\Program Files\PostgreSQL\18\bin
+     ```
+   - Click **OK** to save.
+
+3. **Verify in VS Code Terminal**  
+   - Restart VS Code (important so it reloads environment variables).  
+   - Open a terminal and run:  
+     ```bash
+     psql --version
+     ```
+   - You should see something like:  
+     ```
+     psql (PostgreSQL) 18.x
+     ```
+
+---
+
+## ⚡ Why This Matters
+Adding the `bin` folder to PATH lets you run PostgreSQL tools (`psql`, `createdb`, `pg_dump`, etc.) directly from **any terminal**, including VS Code’s integrated terminal, without needing to type the full path.
+
+---
+
+
+
+
 
