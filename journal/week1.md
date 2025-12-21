@@ -309,3 +309,63 @@ Also use docker compose down to shut it down... thank you
 
 
 
+## week - 1 - Add postgress Dynamodb  
+
+### Adding DynamoDB  Local and Postgres  
+
+We are going to use Postgres and DynamoDB local in future labs. We can bring them in as containers and reference them externally  
+
+Let's Intergrate following into our existing docker compose file
+
+### DynamoDB Local  
+
+```yaml
+services:
+dynamodb-local:
+  # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+  #We needed to add user:root to get  this working..
+  user: root
+  command: "-jar DynamoDBlocal.jar -sharedDb -dbPath ./data"
+  image: "amazon/dynamodb-local:latest"
+  container_name: dynamodb-local
+  ports:
+    - "8000:8000"
+  volumes:
+    -"./docker/dynamodb:/home/dynamodblocal/data"
+  working_dir: /home/dynamodblocal
+```
+
+[Documents about Dynamodb](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+
+Examples of using Dynamodb Local  
+[](https://github.com/zabrazani/aws-bootcamp-cruddur-2023/blob/main/Challenge%20DynamoDB%20Local)
+
+### Postgres  
+
+```yaml
+services:
+  db:
+    Images: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER postgres
+      - POSTGRES_PASSWORD password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+  volumes:
+    db:
+      driver:local
+```
+
+How to install the postgres client on gitpod  
+```sh
+- name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ 'lsb_release -cs'-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+      sudo apt-get update
+      sudo apt install -y postgresql-13 libpq-dev
+```
+
