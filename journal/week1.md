@@ -343,13 +343,15 @@ services:
     Images: postgres:13-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER postgres
+      - POSTGRES_PASSWORD password
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
   volumes:
     db:
       driver:local
 ```
+
+[Documents about Dynamodb](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
