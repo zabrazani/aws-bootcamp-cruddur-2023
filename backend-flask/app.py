@@ -16,29 +16,43 @@ from services.show_activity import *
 
 
 # Honeycomb ------
-# Honeycomb OpenTelemetry setup
-from opentelemetry import trace
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
+# Honeycomb OpenTelemetry setup (optional)
+opentelemetry_available = False
+try:
+  from opentelemetry import trace
+  from opentelemetry.instrumentation.flask import FlaskInstrumentor
+  from opentelemetry.instrumentation.requests import RequestsInstrumentor
+  from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+  from opentelemetry.sdk.trace import TracerProvider
+  from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
+  opentelemetry_available = True
+except Exception:
+  opentelemetry_available = False
 
-# Honeycomb ------
-# Initialize tracing and an exporter that can send data to Honeycomb
-provider = TracerProvider()
-processor = BatchSpanProcessor(OTLPSpanExporter())
-provider.add_span_processor(processor)
-trace.set_tracer_provider(provider)
-tracer . trace.get_tracer(_name_)
+# Initialize tracing and an exporter if available
+if opentelemetry_available:
+  provider = TracerProvider()
+  processor = BatchSpanProcessor(
+    OTLPSpanExporter(
+      endpoint="https://api.honeycomb.io",
+      headers={
+        "x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY"),
+        "x-honeycomb-dataset": os.getenv("HONEYCOMB_SERVICE_NAME")
+      }
+    )
+  )
+  provider.add_span_processor(processor)
+  trace.set_tracer_provider(provider)
+  tracer = trace.get_tracer(__name__)
+else:
+  tracer = None
 
 app = Flask(__name__)
 
-# Honeycomb ------
-# Initialize automatic instrumentation with Flask
-FlaskInstrumentor().instrument_app(app)
-RequestsInstrumentor().instrument()
+if opentelemetry_available:
+  FlaskInstrumentor().instrument_app(app)
+  RequestsInstrumentor().instrument()
 
 
 frontend = os.getenv('FRONTEND_URL')
@@ -64,14 +78,13 @@ def data_message_groups():
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
   user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.args.get('user_reciever_handle')
+  user_receiver_handle = request.args.get('user_receiver_handle')
 
   model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
   if model['errors'] is not None:
     return model['errors'], 422
   else:
     return model['data'], 200
-  return
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
@@ -92,7 +105,7 @@ def data_home():
   data = HomeActivities.run()
   return data, 200
 
-  @app.route("/api/activities/notifications", methods=['GET'])
+@app.route("/api/activities/notifications", methods=['GET'])
 def data_notifications():
   data = NotificationsActivities.run()
   return data, 200
