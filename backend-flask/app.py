@@ -25,6 +25,7 @@ try:
   from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
   from opentelemetry.sdk.trace import TracerProvider
   from opentelemetry.sdk.trace.export import BatchSpanProcessor
+  from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 
   opentelemetry_available = True
 except Exception:
@@ -35,14 +36,18 @@ if opentelemetry_available:
   provider = TracerProvider()
   processor = BatchSpanProcessor(
     OTLPSpanExporter(
-      endpoint="https://api.honeycomb.io",
+      endpoint="https://api.honeycomb.io/v1/traces",
       headers={
         "x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY"),
         "x-honeycomb-dataset": os.getenv("HONEYCOMB_SERVICE_NAME")
       }
     )
   )
+
+  # Show this in thelogs within the backend-flask app (STDOUT)
+  simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
   provider.add_span_processor(processor)
+
   trace.set_tracer_provider(provider)
   tracer = trace.get_tracer(__name__)
 else:
