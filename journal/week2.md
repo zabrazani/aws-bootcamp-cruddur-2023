@@ -54,11 +54,6 @@ Honeycomb is a modern **observability platform** that helps software engineers, 
 
 Sources:   
 
----
-
-
-
-
 When creating a new dataset in HoneyComb it will provide all these installation intructions  
 
 Steps that I followed  
