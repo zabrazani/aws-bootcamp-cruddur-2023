@@ -44,9 +44,16 @@ if opentelemetry_available:
     )
   )
 
-  # Show this in thelogs within the backend-flask app (STDOUT)
+  # Show this in the logs within the backend-flask app (STDOUT)
   simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
   provider.add_span_processor(processor)
+  # Also output spans to the container stdout so we can verify spans locally
+  provider.add_span_processor(simple_processor)
+
+  # Debug info to help verify exporter configuration (does not print secrets)
+  print("Honeycomb OTLP exporter configured with endpoint:", os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT") or "https://api.honeycomb.io/v1/traces")
+  print("HONEYCOMB_API_KEY present:", bool(os.getenv("HONEYCOMB_API_KEY")))
+  print("HONEYCOMB_SERVICE_NAME:", os.getenv("HONEYCOMB_SERVICE_NAME"))
 
   trace.set_tracer_provider(provider)
   tracer = trace.get_tracer(__name__)
