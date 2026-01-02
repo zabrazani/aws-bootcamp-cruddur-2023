@@ -132,6 +132,3 @@ FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
 ```
-
-I ran my docker 
-
